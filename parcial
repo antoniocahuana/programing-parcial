@@ -1,0 +1,71 @@
+package com.mycompany.mavenproject1;
+import java.util.Scanner;
+public class Mavenproject1 {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        
+        System.out.print("Ingrese el tipo de sala (Dinamix, 3D, 2D): ");
+        String tipoSala = input.nextLine();
+
+        
+        System.out.print("Ingrese el número de boletas: ");
+        int numBoletas = input.nextInt();
+
+        
+        System.out.print("Ingrese la hora del día (en formato 24 horas): ");
+        int horaDia = input.nextInt();
+
+        
+        System.out.print("Ingrese el tipo de pago (CinemaCard o Otros): ");
+        String tipoPago = input.next();
+
+        
+        System.out.print("¿Tiene reserva? (Sí o No): ");
+        String tieneReserva = input.next();
+
+        
+        int precioBase = 0;
+        if (tipoSala.equalsIgnoreCase("Dinamix")) {
+            if (horaDia >= 17 && horaDia < 23) {
+                precioBase = 28200; // 50% de aumento en horas pico
+            } else {
+                precioBase = 18800; // 10% de descuento en horas no pico
+            }
+        } else if (tipoSala.equalsIgnoreCase("3D")) {
+            if (horaDia >= 17 && horaDia < 23) {
+                precioBase = 19375; // 25% de aumento en horas pico
+            } else {
+                precioBase = 15500; // 10% de descuento en horas no pico
+            }
+        } else if (tipoSala.equalsIgnoreCase("2D")) {
+            if (horaDia >= 17 && horaDia < 23) {
+                precioBase = 14125; // 25% de aumento en horas pico
+            } else {
+                precioBase = 11300; // 10% de descuento en horas no pico
+            }
+        } else {
+            System.out.println("Tipo de sala no válido");
+            System.exit(0);
+        }
+
+        int descuentoBoletas = 0;
+        if (numBoletas >= 3) {
+            descuentoBoletas = (numBoletas - 3) * 500;
+        }
+
+        double descuentoTarjeta = 0;
+        if (tipoPago.equalsIgnoreCase("CinemaCard")) {
+            descuentoTarjeta = 0.05;
+        }
+
+        int recargoReserva = 0;
+        if (tieneReserva.equalsIgnoreCase("Sí")) {
+            recargoReserva = 2000 * numBoletas;
+        }
+        
+        double precioFinal=(precioBase * numBoletas - descuentoBoletas) * (1 - descuentoTarjeta);
+        System.out.printf("El precio final es: %,.0f", precioFinal + recargoReserva);
+                }                
+        }       
+                
